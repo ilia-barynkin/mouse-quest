@@ -10,9 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3465036724319177634}
   - component: {fileID: 2664457945348718835}
-  - component: {fileID: 3120608550587680072}
-  - component: {fileID: 6240978666373182727}
-  - component: {fileID: 1274531754694908985}
+  - component: {fileID: 1728451476876342434}
+  - component: {fileID: 7859663921328772485}
+  - component: {fileID: 687269696316805504}
+  - component: {fileID: 6444798778889181376}
+  - component: {fileID: 969295418527290830}
   m_Layer: 0
   m_Name: Mouse
   m_TagString: Untagged
@@ -87,28 +89,69 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!95 &3120608550587680072
-Animator:
-  serializedVersion: 5
+--- !u!70 &1728451476876342434
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4599235999137180281}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2f8b57d91ef81b40ebd601d346f54da5, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!111 &6240978666373182727
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.1}
+  m_Size: {x: 0.2, y: 0.15}
+  m_Direction: 1
+--- !u!114 &7859663921328772485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4599235999137180281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5b70f3637af9a527856fbb0de702cf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!50 &687269696316805504
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4599235999137180281}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 1
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &6444798778889181376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4599235999137180281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e5c4b0d074541f6f83704fdb726dbfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 0}
+--- !u!111 &969295418527290830
 Animation:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -117,27 +160,17 @@ Animation:
   m_GameObject: {fileID: 4599235999137180281}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: e88e3e526fefef8e2ab627a04f0da0da, type: 2}
-  m_Animations: []
+  m_Animation: {fileID: 7400000, guid: 2dcdbcb9c5949be56a25f862aa6aeb9c, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: e110d2db600444da1a2100b74889c693, type: 2}
+  - {fileID: 7400000, guid: 1a3ff55f362db1c339ce9467a2cdaaae, type: 2}
+  - {fileID: 7400000, guid: e110d2db600444da1a2100b74889c693, type: 2}
+  - {fileID: 7400000, guid: eda16d3f7be43b756be3a9f9d2c340fc, type: 2}
+  - {fileID: 7400000, guid: 89a2569d653c642839bfc379bbd72acc, type: 2}
+  - {fileID: 7400000, guid: c97965b294be91cce8d13a5a0720b49f, type: 2}
+  - {fileID: 7400000, guid: 2dcdbcb9c5949be56a25f862aa6aeb9c, type: 2}
+  - {fileID: 7400000, guid: b8e11f6150015f94bba1677c45bd3fad, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!143 &1274531754694908985
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4599235999137180281}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 0.8
-  m_Radius: 0.2
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
