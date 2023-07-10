@@ -2,63 +2,51 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum WASDOrient {
-    W, A, S, D, WA, AS, SD, DW
-};
-
-public struct AnimNameOriented {
-    public string animName;
-    //WASDOrient orient;
-    public Vector2Int orient;
-
-    public override int GetHashCode() {
-        return animName.GetHashCode() + orient.GetHashCode();
-    }
-};
-
-public class AnimBucket {
-    public Dictionary<AnimNameOriented, AnimationState> animations  = new Dictionary<AnimNameOriented, AnimationState>();
-
-    // "BS" stands for Best suitable, of course
-    public AnimBucket(Animation animBS) {
-        foreach (AnimationState animState in animBS) {
-            var lastTwoLetters = animState.name.Trim()[^2..];
-
-            Vector2Int orient =  new Vector2Int(
-                lastTwoLetters.Contains('W') ? 1 : lastTwoLetters.Contains('S') ? -1 : 0,
-                lastTwoLetters.Contains('A') ? 1 : lastTwoLetters.Contains('D') ? -1 : 0
-            );
-
-            var animTypeName = animState.name.Trim()[..^(orient.x + orient.y)];
-
-            animations.Add(new AnimNameOriented{ animName = animTypeName, orient = orient }, animState);
-        }
-    }
-}
-
 public class Character : MonoBehaviour
 {
-    public Rigidbody2D body;
+    SpriteAnimation spriteAnimation;
+    Rigidbody2D body;
     int Discr(float x) { return x < 0.0f ? -1 : x > 0.0f ? 1 : 0; }
-    // intended movement
-    Vector2Int mov;
-    AnimBucket animBucket;
-    Animation animations;
+    Vector2Int GetDiscrVec(Vector2 vec) { return new Vector2Int(Discr(vec.x), Discr(vec.y)); }
 
-    void PlayAnim(string animName, Vector2Int orient) {
-        animations..Play(animBucket.animations[new AnimNameOriented(animName, orient)]];
-    };
+    public string idleAnim = "Idle";
+    public string runAnim = "Run";
+
+    float speed = 1.0f;
+
+    [field: SerializeField]
+    Vector2Int orient = new Vector2Int(0, -1);
+
+    [field: SerializeField]
+    Vector2 intendedMov = new Vector2();
+
+    public void Move(Vector2 dir) {
+        if (dir != Vector2.zero) {
+            intendedMov = dir;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
-        animBucket = new AnimBucket(GetComponent<Animation>());
+        spriteAnimation = GetComponent<SpriteAnimation>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (intendedMov != Vector2.zero) {
+            body.velocity = intendedMov.normalized * speed;
+            orient = GetDiscrVec(intendedMov);
+            spriteAnimation.SetDirAnim("Run", orient);
+        }
+        // else if (body.velocity.magnitude == 0.0f) { // TODO
+        else {
+            body.velocity = Vector2.zero; 
+            spriteAnimation.SetDirAnim("Idle", orient);
+        }
+
+        intendedMov = Vector2.zero;
     }
 }
