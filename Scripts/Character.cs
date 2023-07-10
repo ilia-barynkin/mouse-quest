@@ -15,10 +15,26 @@ public class Character : MonoBehaviour
     float speed = 1.0f;
 
     [field: SerializeField]
-    Vector2Int orient = new Vector2Int(0, -1);
+    Vector2Int orient = new Vector2Int(0, -1); // TODO ?
 
     [field: SerializeField]
     Vector2 intendedMov = new Vector2();
+
+    const float ANGLE_ADJACENT = 45.0f / 2.0f;
+
+    public void FaceTo(Vector2 vec) {
+        var relVec = vec - (Vector2)transform.position;
+
+        var middleAxis = Mathf.Abs(relVec.x) > Mathf.Abs(relVec.y) ? 
+            new Vector2(Mathf.Sign(relVec.x), 0.0f) : new Vector2(0.0f, Mathf.Sign(relVec.y));
+        
+        if (Vector2.Angle(relVec.normalized, middleAxis) <= ANGLE_ADJACENT) {
+            orient = new Vector2Int((int)middleAxis.x, (int)middleAxis.y);
+        }
+        else {
+            orient = GetDiscrVec(relVec);
+        }
+    }
 
     public void Move(Vector2 dir) {
         if (dir != Vector2.zero) {
@@ -41,7 +57,6 @@ public class Character : MonoBehaviour
             orient = GetDiscrVec(intendedMov);
             spriteAnimation.SetDirAnim("Run", orient);
         }
-        // else if (body.velocity.magnitude == 0.0f) { // TODO
         else {
             body.velocity = Vector2.zero; 
             spriteAnimation.SetDirAnim("Idle", orient);

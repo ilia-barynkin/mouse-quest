@@ -19,5 +19,10 @@ public class PlayerControl : MonoBehaviour
     void Update()
     {
         character.Move(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")));
+
+        if (Input.GetMouseButton(0)) {
+            character.FaceTo(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            
+        }
     }
 }
