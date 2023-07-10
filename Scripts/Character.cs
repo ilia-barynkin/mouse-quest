@@ -12,6 +12,8 @@ public class Character : MonoBehaviour
     public string idleAnim = "Idle";
     public string runAnim = "Run";
 
+    public bool Busy {get; set;} = false;
+
     float speed = 1.0f;
 
     [field: SerializeField]
@@ -52,14 +54,16 @@ public class Character : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (intendedMov != Vector2.zero) {
-            body.velocity = intendedMov.normalized * speed;
-            orient = GetDiscrVec(intendedMov);
-            spriteAnimation.SetDirAnim("Run", orient);
-        }
-        else {
-            body.velocity = Vector2.zero; 
-            spriteAnimation.SetDirAnim("Idle", orient);
+        if (!Busy) {
+            if (intendedMov != Vector2.zero) {
+                body.velocity = intendedMov.normalized * speed;
+                orient = GetDiscrVec(intendedMov);
+                spriteAnimation.SetDirAnim("Run", orient);
+            }
+            else {
+                body.velocity = Vector2.zero; 
+                spriteAnimation.SetDirAnim("Idle", orient);
+            }
         }
 
         intendedMov = Vector2.zero;
