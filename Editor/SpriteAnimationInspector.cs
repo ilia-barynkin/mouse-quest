@@ -33,7 +33,6 @@ public class SpriteAnimationEditor : Editor
         // TODO: Serialization, changes
         if (GUILayout.Button("GenerateAnimations")) {
             var t = target as SpriteAnimation;
-
             t.animsBucket = new OrientedAnimationsBucket();
             
             foreach (var currAnimChunk in t.animations) {
@@ -48,7 +47,6 @@ public class SpriteAnimationEditor : Editor
 
             EditorUtility.SetDirty(target);
             EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
-
             animationsCreated = true;
         }
 

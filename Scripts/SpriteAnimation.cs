@@ -34,75 +34,72 @@ public class SpriteAnimation : MonoBehaviour
     [SerializeField]
     SpriteRenderer spriteRenderer;
 
-    public string currAnimName = "Idle";
+    Stack<string> animStack = new Stack<string>();
     public float framesPerSec = 12.0f;
 
     // TODO
     float animDelta = 0.0f;
     float frameDuration;
-    float animLoopDuration;
+    float AnimLoopDuration {
+        get {
+            return CurrentSpriteSeq.Count * frameDuration;
+        }
+    }
+
+    public string CurrAnimName {
+        get {
+            const string fallback = "Idle"; // TODO
+            var res = animStack.FirstOrDefault();
+            return String.IsNullOrEmpty(res) ? fallback : res;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
+        //animStack.Push("Attack"); // TODO: kostyl
         frameDuration = 1.0f / framesPerSec;
         spriteRenderer = GetComponent<SpriteRenderer>();
-        animLoopDuration = CurrentSpriteSeq.Count * frameDuration;
 
         UpdateSprite(0);
     }
 
-    List<Sprite> CurrentSpriteSeq {get {return animsBucket[currAnimName][animDir]; }}
-
-    //Sprite CurrentSprite {get {return CurrentSpriteSeq[currFrameId];} }
-
+    List<Sprite> CurrentSpriteSeq {get {return animsBucket[CurrAnimName][animDir]; }}
     Vector2Int animDir = new Vector2Int(0, -1);
 
     // Update is called once per frame
     void Update()
     {
-        // TODO : loop
-
         animDelta += Time.deltaTime;
-        if (animDelta >= animLoopDuration) {
-            animDelta -= animLoopDuration;
-            // if ((currFrameId += 1) >= CurrentSpriteSeq.Count())  a
-            //     currFrameId -= CurrentSpriteSeq.Count();
+
+        if (animDelta >= AnimLoopDuration) {
+            if(animStack.Count > 1) {
+                animStack.Pop();
+                animDelta = 0.0f;
+            }
+            else 
+                animDelta -= AnimLoopDuration;
         }
-
         
-        int frameIndex = Mathf.FloorToInt(Mathf.Lerp(0.0f, CurrentSpriteSeq.Count, animDelta / animLoopDuration));
-        Assert.IsTrue(frameIndex >= 0 && frameIndex < CurrentSpriteSeq.Count);
+        int frameIndex = Mathf.FloorToInt(Mathf.Lerp(0.0f, CurrentSpriteSeq.Count, animDelta / AnimLoopDuration));
+
         UpdateSprite(frameIndex);
-        
-
-
-        // animDelta += Time.deltaTime;
-        // if (animDelta >= frameDuration) {
-        //     animDelta -= frameDuration;
-
-        //     if (currFrameId++ >= CurrentSpriteSeq.Count())
-        //         currFrameId = 0;
-
-        //     UpdateSprite();
-        // }
     }
 
     void UpdateSprite(int frameId) {
         spriteRenderer.sprite = CurrentSpriteSeq[frameId];
     }
 
-    public void SetDirAnim(string animName, Vector2Int dir) {
-        if (animName == currAnimName && dir == animDir) {
+    public void Play(string animName, Vector2Int dir, bool looped = true) {
+        if (animName == CurrAnimName && dir == animDir) {
             return;
         }
         
         if (animsBucket.ContainsKey(animName)) {
-            //Debug.Log("SetDirAnim(" + animName + ", " + dir.ToShortString() + ")");
-            currAnimName = animName;
+            if (looped) animStack.Clear(); // un-looped animations actually go to stack
+            animStack.Push(animName);
             animDir = dir;
             animDelta = 0.0f;
-            animLoopDuration = CurrentSpriteSeq.Count * frameDuration;
         }
         else {
             Debug.Log("Animation name doesn't exist: " + animName);

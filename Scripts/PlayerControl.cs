@@ -7,22 +7,24 @@ public class PlayerControl : MonoBehaviour
 {
     Character character;
     SpriteAnimation spriteAnimation;
+    Attacker attacker;
 
     // Start is called before the first frame update
     void Start()
     {
         spriteAnimation = GetComponent<SpriteAnimation>();
         character = GetComponent<Character>();
+        attacker = GetComponent<Attacker>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        character.Move(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")));
+        if (!character.busy)
+            character.Move(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")));
 
         if (Input.GetMouseButton(0)) {
-            character.FaceTo(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            
+            attacker.Attack(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }
     }
 }

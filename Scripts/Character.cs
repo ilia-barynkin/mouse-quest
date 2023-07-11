@@ -12,7 +12,7 @@ public class Character : MonoBehaviour
     public string idleAnim = "Idle";
     public string runAnim = "Run";
 
-    public bool Busy {get; set;} = false;
+    public bool busy = false;
 
     float speed = 1.0f;
 
@@ -22,9 +22,15 @@ public class Character : MonoBehaviour
     [field: SerializeField]
     Vector2 intendedMov = new Vector2();
 
+    public bool IsMoving {
+        get {
+            return intendedMov != Vector2.zero;
+        }
+    }
+
     const float ANGLE_ADJACENT = 45.0f / 2.0f;
 
-    public void FaceTo(Vector2 vec) {
+    public Vector2Int FaceTo(Vector2 vec) {
         var relVec = vec - (Vector2)transform.position;
 
         var middleAxis = Mathf.Abs(relVec.x) > Mathf.Abs(relVec.y) ? 
@@ -36,6 +42,8 @@ public class Character : MonoBehaviour
         else {
             orient = GetDiscrVec(relVec);
         }
+
+        return orient;
     }
 
     public void Move(Vector2 dir) {
@@ -51,18 +59,23 @@ public class Character : MonoBehaviour
         spriteAnimation = GetComponent<SpriteAnimation>();
     }
 
+    public void Stop() {
+        intendedMov = Vector2.zero;
+        body.velocity = Vector2.zero;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (!Busy) {
+        if (!busy) {
             if (intendedMov != Vector2.zero) {
                 body.velocity = intendedMov.normalized * speed;
                 orient = GetDiscrVec(intendedMov);
-                spriteAnimation.SetDirAnim("Run", orient);
+                spriteAnimation.Play(runAnim, orient);
             }
             else {
                 body.velocity = Vector2.zero; 
-                spriteAnimation.SetDirAnim("Idle", orient);
+                spriteAnimation.Play(idleAnim, orient);
             }
         }
 
