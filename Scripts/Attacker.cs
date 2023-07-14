@@ -20,17 +20,17 @@ public class Attacker : MonoBehaviour
         spriteAnimation = GetComponent<SpriteAnimation>();
     }
 
-    string idleAnimNameBefore = "";
-
     public void Attack(Vector2 point) {
         delayDelta = delayAfterAttack; // always lower than the actual attack animation
 
         // TODO: replace with indirect call from character, maybe
-        spriteAnimation.Play("Attack", character.FaceTo(point), false);
-        idleAnimNameBefore = character.idleAnim;
+        spriteAnimation.Play("Attack", character.FaceToScreenPoint(point), false);
         character.idleAnim = attackIdleAnimName;
+        idleAnimChanged = true;
         character.Stop();
     }
+
+    bool idleAnimChanged = false;
 
     // Update is called once per frame
     void Update()
@@ -38,15 +38,16 @@ public class Attacker : MonoBehaviour
         if (delayDelta > 0.0f) {
             character.busy = true;
             delayDelta -= Time.deltaTime;
+
+            if (delayDelta <= 0.0f) {
+                delayDelta = 0.0f;
+                character.busy = false;
+            }
         }
 
-        if (delayDelta <= 0.0f) {
-            delayDelta = 0.0f;
-            character.busy = false;
-
-            if (character.IsMoving) {
-                character.idleAnim = idleAnimNameBefore;
-            }
+        if (idleAnimChanged && character.IsMoving) {
+            character.idleAnim = "Idle"; // TODO
+            idleAnimChanged = false;
         }
     }
 }

@@ -14,8 +14,9 @@ public class Character : MonoBehaviour
 
     public bool busy = false;
 
-    float speed = 1.0f;
+    public float speed = 1.0f;
 
+    // TODO TODO TODO : figure out something
     [field: SerializeField]
     Vector2Int orient = new Vector2Int(0, -1); // TODO ?
 
@@ -24,15 +25,20 @@ public class Character : MonoBehaviour
 
     public bool IsMoving {
         get {
-            return intendedMov != Vector2.zero;
+            // Debug.Log("intendedMov = " + intendedMov.ToString());
+            // Debug.Log("intendedMov.x > 0.0f || intendedMov.y > 0.0f" + (intendedMov.x > 0.0f || intendedMov.y > 0.0f));
+            //return intendedMov.x > 0.0f || intendedMov.y > 0.0f;
+
+            return body.velocity.magnitude > Mathf.Epsilon;
         }
     }
 
     const float ANGLE_ADJACENT = 45.0f / 2.0f;
 
-    public Vector2Int FaceTo(Vector2 vec) {
-        var relVec = vec - (Vector2)transform.position;
+    // TODO TODO TODO
 
+    public Vector2Int FaceToRelScreenPoint(Vector2 relVecScreen) { 
+        var relVec = Projection.FromScreenToScene(relVecScreen);
         var middleAxis = Mathf.Abs(relVec.x) > Mathf.Abs(relVec.y) ? 
             new Vector2(Mathf.Sign(relVec.x), 0.0f) : new Vector2(0.0f, Mathf.Sign(relVec.y));
         
@@ -46,7 +52,11 @@ public class Character : MonoBehaviour
         return orient;
     }
 
-    public void Move(Vector2 dir) {
+    public Vector2Int FaceToScreenPoint(Vector2 screenPoint) {
+        return FaceToRelScreenPoint(screenPoint - (Vector2)transform.position);
+    }
+
+    public void MoveRelative(Vector2 dir) {
         if (dir != Vector2.zero) {
             intendedMov = dir;
         }
@@ -70,7 +80,8 @@ public class Character : MonoBehaviour
         if (!busy) {
             if (intendedMov != Vector2.zero) {
                 body.velocity = intendedMov.normalized * speed;
-                orient = GetDiscrVec(intendedMov);
+                // TODO TODO TODO
+                FaceToRelScreenPoint(intendedMov);
                 spriteAnimation.Play(runAnim, orient);
             }
             else {
@@ -78,6 +89,11 @@ public class Character : MonoBehaviour
                 spriteAnimation.Play(idleAnim, orient);
             }
         }
+
+        var sceneOrient = Projection.FromSceneToScreen(orient);
+
+        Debug.DrawLine(new Vector3(transform.position.x, transform.position.y, 0.0f),
+            new Vector3(transform.position.x + sceneOrient.x, transform.position.y + sceneOrient.y, 0.0f));
 
         intendedMov = Vector2.zero;
     }

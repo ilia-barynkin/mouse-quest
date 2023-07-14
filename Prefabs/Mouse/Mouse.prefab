@@ -123,14 +123,14 @@ GameObject:
   - component: {fileID: 2664457945348718835}
   - component: {fileID: 1728451476876342434}
   - component: {fileID: 7859663921328772485}
+  - component: {fileID: 5328273335578226430}
   - component: {fileID: 687269696316805504}
-  - component: {fileID: 1542013688677374578}
   - component: {fileID: 6444798778889181376}
+  - component: {fileID: 1542013688677374578}
   - component: {fileID: 2396790024334344261}
-  - component: {fileID: 9132375438860738268}
   m_Layer: 0
   m_Name: Mouse
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -231,6 +231,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5b70f3637af9a527856fbb0de702cf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5328273335578226430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4599235999137180281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3732837a57322afff8a7faeccab8fe67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zBase: -0.5
+  ratioYZ: 0.3
+  topPoint: {fileID: 0}
 --- !u!50 &687269696316805504
 Rigidbody2D:
   serializedVersion: 4
@@ -245,27 +260,13 @@ Rigidbody2D:
   m_UseAutoMass: 1
   m_Mass: 0.02517146
   m_LinearDrag: 1
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &1542013688677374578
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4599235999137180281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82fd777ade92735caa10abbf9121f2c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackAnimName: Attack
-  delayAfterAttack: 0.66
 --- !u!114 &6444798778889181376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,8 +281,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idleAnim: Idle
   runAnim: Run
+  busy: 0
+  speed: 1.3
   orient: {x: 0, y: -1}
   intendedMov: {x: 0, y: 0}
+--- !u!114 &1542013688677374578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4599235999137180281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82fd777ade92735caa10abbf9121f2c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackAnimName: Attack
+  attackIdleAnimName: AttackIdle
+  delayAfterAttack: 0.66
 --- !u!114 &2396790024334344261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,7 +380,7 @@ MonoBehaviour:
         - Key: {x: 0, y: 0}
           Value: {fileID: 7400000, guid: 19e14737529bd93a49b1fafe8e327b5d, type: 2}
         keyCollision: 0
-    - Key: AttackIddle
+    - Key: AttackIdle
       Value:
         list:
         - Key: {x: 0, y: 1}
@@ -717,7 +735,7 @@ MonoBehaviour:
           - {fileID: 1626327355, guid: 402962fdebb2db4f4864682aaa9d3221, type: 3}
           - {fileID: 1341185711, guid: 402962fdebb2db4f4864682aaa9d3221, type: 3}
         keyCollision: 0
-    - Key: AttackIddle
+    - Key: AttackIdle
       Value:
         list:
         - Key: {x: 0, y: 1}
@@ -814,15 +832,3 @@ MonoBehaviour:
     keyCollision: 0
   spriteRenderer: {fileID: 0}
   framesPerSec: 12
---- !u!114 &9132375438860738268
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4599235999137180281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b70f3637af9a527856fbb0de702cf3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

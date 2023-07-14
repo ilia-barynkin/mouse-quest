@@ -32,6 +32,7 @@ public class SpriteAnimation : MonoBehaviour
     public OrientedAnimationsBucket animsBucket;
     
     [SerializeField]
+    [HideInInspector]
     SpriteRenderer spriteRenderer;
 
     Stack<string> animStack = new Stack<string>();

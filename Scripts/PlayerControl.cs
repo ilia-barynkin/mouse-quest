@@ -21,7 +21,7 @@ public class PlayerControl : MonoBehaviour
     void Update()
     {
         if (!character.busy)
-            character.Move(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")));
+            character.MoveRelative(new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")));
 
         if (Input.GetMouseButton(0)) {
             attacker.Attack(Camera.main.ScreenToWorldPoint(Input.mousePosition));
