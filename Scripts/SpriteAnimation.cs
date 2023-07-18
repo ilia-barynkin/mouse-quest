@@ -58,7 +58,6 @@ public class SpriteAnimation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //animStack.Push("Attack"); // TODO: kostyl
         frameDuration = 1.0f / framesPerSec;
         spriteRenderer = GetComponent<SpriteRenderer>();
 

@@ -20,11 +20,12 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!character.busy)
-            character.MoveRelative(new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")));
+        if (!character.busy) {
+            character.MoveRelative(new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"))); 
 
-        if (Input.GetMouseButton(0)) {
-            attacker.Attack(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            if (Input.GetMouseButtonDown(0)) {
+                attacker.Attack(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            }
         }
     }
 }

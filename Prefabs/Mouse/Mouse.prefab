@@ -128,7 +128,8 @@ GameObject:
   - component: {fileID: 6444798778889181376}
   - component: {fileID: 1542013688677374578}
   - component: {fileID: 2396790024334344261}
-  m_Layer: 0
+  - component: {fileID: 4645932474645911782}
+  m_Layer: 3
   m_Name: Mouse
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -300,6 +301,7 @@ MonoBehaviour:
   attackAnimName: Attack
   attackIdleAnimName: AttackIdle
   delayAfterAttack: 0.66
+  projectile: {fileID: 0}
 --- !u!114 &2396790024334344261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -832,3 +834,17 @@ MonoBehaviour:
     keyCollision: 0
   spriteRenderer: {fileID: 0}
   framesPerSec: 12
+--- !u!114 &4645932474645911782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4599235999137180281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27f605e6a37976b658f96790c16d5478, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthMax: 3
+  currentHealth: 3

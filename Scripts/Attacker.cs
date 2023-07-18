@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Attacker : MonoBehaviour
@@ -12,6 +13,8 @@ public class Attacker : MonoBehaviour
     public float delayAfterAttack = 1.0f;
 
     float delayDelta = 0.0f;
+
+    public GameObject projectile;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +31,11 @@ public class Attacker : MonoBehaviour
         character.idleAnim = attackIdleAnimName;
         idleAnimChanged = true;
         character.Stop();
+
+        projectiles.Push(Instantiate(projectile, transform.position, Quaternion.identity));
     }
+
+    Stack<GameObject> projectiles = new Stack<GameObject>();
 
     bool idleAnimChanged = false;
 
@@ -42,6 +49,7 @@ public class Attacker : MonoBehaviour
             if (delayDelta <= 0.0f) {
                 delayDelta = 0.0f;
                 character.busy = false;
+                Destroy(projectiles.Pop());
             }
         }
 
