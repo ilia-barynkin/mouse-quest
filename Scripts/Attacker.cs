@@ -8,6 +8,7 @@ public class Attacker : MonoBehaviour
 {
     Character character;
     SpriteAnimation spriteAnimation;
+    Orient orient;
 
     public string attackAnimName = "Attack";
     public string attackIdleAnimName = "AttackIdle";
@@ -16,7 +17,7 @@ public class Attacker : MonoBehaviour
     float delayDelta = 0.0f;
 
     public GameObject projectile;
-    Orient orient;
+    Rigidbody2D body;
 
     // Start is called before the first frame update
     void Start()
@@ -24,23 +25,27 @@ public class Attacker : MonoBehaviour
         character = GetComponent<Character>();
         spriteAnimation = GetComponent<SpriteAnimation>();
         orient = GetComponent<Orient>();
+        body = GetComponent<Rigidbody2D>();
     }
 
     public void Attack(Vector2 point) {
         delayDelta = delayAfterAttack; // always lower than the actual attack animation
 
         // TODO: replace with indirect call from character, maybe
-        spriteAnimation.Play("Attack", orient.FaceToScreenPoint(point), false);
+        orient.FaceToScreenPoint(point);
+        spriteAnimation.Play("Attack", orient.screenVec, false);
         character.idleAnim = attackIdleAnimName;
         idleAnimChanged = true;
         character.Stop();
+        body.AddForce(orient.sceneVec);
 
-        projectiles.Push(Instantiate(projectile, transform.position, Quaternion.identity));
+        projectiles.Push(Instantiate(projectile, transform.position + orient.sceneVec * range, Quaternion.identity));
     }
 
     Stack<GameObject> projectiles = new Stack<GameObject>();
 
     bool idleAnimChanged = false;
+    float range = 0.3f;
 
     // Update is called once per frame
     void Update()

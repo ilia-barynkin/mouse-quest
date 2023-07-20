@@ -12,7 +12,7 @@ public class Orient : MonoBehaviour
 
     public Vector2Int screenVec = new Vector2Int(0, -1); // TODO ?
 
-    public Vector2Int FaceToRelScreenPoint(Vector2 relVecScreen) { 
+    public void FaceToScenePoint(Vector2 relVecScreen) { 
         var relVec = Projection.FromScreenToScene(relVecScreen);
         var middleAxis = Mathf.Abs(relVec.x) > Mathf.Abs(relVec.y) ? 
             new Vector2(Mathf.Sign(relVec.x), 0.0f) : new Vector2(0.0f, Mathf.Sign(relVec.y));
@@ -24,17 +24,17 @@ public class Orient : MonoBehaviour
             screenVec = GetDiscrVec(relVec);
         }
 
-        return screenVec;
+        //return screenVec;
     }
 
-    public Vector2 sceneVec{
+    public Vector3 sceneVec{
         get {
             return Projection.FromSceneToScreen(screenVec);
         }
     }
 
-    public Vector2Int FaceToScreenPoint(Vector2 screenPoint) {
-        return FaceToRelScreenPoint(screenPoint - (Vector2)transform.position);
+    public void FaceToScreenPoint(Vector2 screenPoint) {
+        FaceToScenePoint(screenPoint - (Vector2)transform.position);
     }
 
     // Start is called before the first frame update
