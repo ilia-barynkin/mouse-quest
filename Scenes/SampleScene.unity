@@ -1650,6 +1650,10 @@ PrefabInstance:
       propertyPath: projectile
       value: 
       objectReference: {fileID: 8221246453217939709, guid: 27e72555b462dfdd388a059503f64957, type: 3}
+    - target: {fileID: 1542013688677374578, guid: 167e3e149911b7aceb9d5d6be02d3dfd, type: 3}
+      propertyPath: delayAfterAttack
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 3465036724319177634, guid: 167e3e149911b7aceb9d5d6be02d3dfd, type: 3}
       propertyPath: m_RootOrder
       value: 2
