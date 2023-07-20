@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Attacker : MonoBehaviour
@@ -15,19 +16,21 @@ public class Attacker : MonoBehaviour
     float delayDelta = 0.0f;
 
     public GameObject projectile;
+    Orient orient;
 
     // Start is called before the first frame update
     void Start()
     {
         character = GetComponent<Character>();
         spriteAnimation = GetComponent<SpriteAnimation>();
+        orient = GetComponent<Orient>();
     }
 
     public void Attack(Vector2 point) {
         delayDelta = delayAfterAttack; // always lower than the actual attack animation
 
         // TODO: replace with indirect call from character, maybe
-        spriteAnimation.Play("Attack", character.FaceToScreenPoint(point), false);
+        spriteAnimation.Play("Attack", orient.FaceToScreenPoint(point), false);
         character.idleAnim = attackIdleAnimName;
         idleAnimChanged = true;
         character.Stop();
