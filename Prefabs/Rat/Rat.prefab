@@ -216,6 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b449944d08881952b6de86d5b9491d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  screenVec: {x: 0, y: -1}
 --- !u!114 &2655812418884151249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,8 +229,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27f605e6a37976b658f96790c16d5478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthMax: 3
+  healthMax: 1
   currentHealth: 0
+  invincibilityTimeAfterHit: 0
+  invincible: 0
 --- !u!70 &1728451476876342434
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -298,7 +301,6 @@ MonoBehaviour:
   runAnim: Run
   busy: 0
   speed: 0.5
-  orient: {x: 0, y: -1}
   intendedMov: {x: 0, y: 0}
 --- !u!114 &2965172768954810290
 MonoBehaviour:

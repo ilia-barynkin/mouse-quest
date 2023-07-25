@@ -126,8 +126,8 @@ GameObject:
   - component: {fileID: 7859663921328772485}
   - component: {fileID: 5328273335578226430}
   - component: {fileID: 687269696316805504}
-  - component: {fileID: 6444798778889181376}
   - component: {fileID: 1542013688677374578}
+  - component: {fileID: 6444798778889181376}
   - component: {fileID: 2396790024334344261}
   - component: {fileID: 4645932474645911782}
   m_Layer: 3
@@ -217,6 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b449944d08881952b6de86d5b9491d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  screenVec: {x: 0, y: -1}
 --- !u!70 &1728451476876342434
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -245,6 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5b70f3637af9a527856fbb0de702cf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  touchDamage: 0.5
 --- !u!114 &5328273335578226430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,6 +283,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1542013688677374578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4599235999137180281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82fd777ade92735caa10abbf9121f2c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackAnimName: Attack
+  attackIdleAnimName: AttackIdle
+  delayAfterAttack: 0.66
+  projectile: {fileID: 8221246453217939709, guid: 27e72555b462dfdd388a059503f64957, type: 3}
+  dashRange: 0.4
 --- !u!114 &6444798778889181376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,24 +316,7 @@ MonoBehaviour:
   runAnim: Run
   busy: 0
   speed: 1.3
-  orient: {x: 0, y: -1}
   intendedMov: {x: 0, y: 0}
---- !u!114 &1542013688677374578
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4599235999137180281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82fd777ade92735caa10abbf9121f2c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackAnimName: Attack
-  attackIdleAnimName: AttackIdle
-  delayAfterAttack: 0.66
-  projectile: {fileID: 0}
 --- !u!114 &2396790024334344261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -834,3 +836,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthMax: 3
   currentHealth: 3
+  invincibilityTimeAfterHit: 0
+  invincible: 0

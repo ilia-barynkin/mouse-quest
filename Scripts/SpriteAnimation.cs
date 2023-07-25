@@ -68,7 +68,7 @@ public class SpriteAnimation : MonoBehaviour
     Vector2Int animDir = new Vector2Int(0, -1);
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         animDelta += Time.deltaTime;
 
@@ -94,6 +94,8 @@ public class SpriteAnimation : MonoBehaviour
         if (animName == CurrAnimName && dir == animDir) {
             return;
         }
+
+        Debug.Log("changed animation to:" + animName);
         
         if (animsBucket.ContainsKey(animName)) {
             if (looped) animStack.Clear(); // un-looped animations actually go to stack

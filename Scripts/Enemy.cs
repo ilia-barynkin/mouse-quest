@@ -11,18 +11,21 @@ public class Enemy : MonoBehaviour
     // TODO: rename component "Character"
     Character enemyCharacter;
 
+    void Start() {
+        enemyCharacter = GetComponent<Character>();
+    }
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         player = GameObject.FindGameObjectsWithTag("Player").First();
-        enemyCharacter = GetComponent<Character>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        enemyCharacter.MoveRelative(player.transform.position - transform.position);
-        //enemyCharacter.FaceTo(Projection.FromScreenToScene(player.transform.position - transform.position));
-        //enemyCharacter.FaceToScreenPoint((Vector2)player.transform.position);
+        if (player != null) {
+            enemyCharacter.MoveRelative(player.transform.position - transform.position);
+        }
     }
 }

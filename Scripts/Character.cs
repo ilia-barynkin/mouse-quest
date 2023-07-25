@@ -19,12 +19,12 @@ public class Character : MonoBehaviour
 
     public bool IsMoving {
         get {
-            return body.velocity.magnitude > Mathf.Epsilon;
+            return intendedMov.magnitude > 0.0f;
         }
     }
 
     public void MoveRelative(Vector2 dir) {
-        if (dir != Vector2.zero) {
+        if (!busy) {
             intendedMov = dir;
         }
     }
@@ -45,7 +45,7 @@ public class Character : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (!busy) {
             if (intendedMov != Vector2.zero) {

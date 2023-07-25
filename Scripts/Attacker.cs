@@ -28,29 +28,47 @@ public class Attacker : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
     }
 
+    public bool isAttacking {
+        get {
+            return delayDelta > 0.0f;
+        }
+    }
+
+    public float dashRange = 0.4f;
+
     public void Attack(Vector2 point) {
-        delayDelta = delayAfterAttack; // always lower than the actual attack animation
+        if (!character.busy && !isAttacking) {
+            delayDelta = delayAfterAttack; // always lower than the actual attack animation
 
-        // TODO: replace with indirect call from character, maybe
-        orient.FaceToScreenPoint(point);
-        spriteAnimation.Play("Attack", orient.screenVec, false);
-        character.idleAnim = attackIdleAnimName;
-        idleAnimChanged = true;
-        character.Stop();
-        body.AddForce(orient.sceneVec);
+            // TODO: replace with indirect call from character, maybe
+            orient.FaceToScreenPoint(point);
+            spriteAnimation.Play("AttackIdle", orient.screenVec);
+            spriteAnimation.Play("Attack", orient.screenVec, false);
+            character.idleAnim = attackIdleAnimName;
+            idleAnimChanged = true;
+            character.Stop();
 
-        projectiles.Push(Instantiate(projectile, transform.position + orient.sceneVec * range, Quaternion.identity));
+            projectiles.Push(Instantiate(projectile, transform.position + orient.sceneVec * range, Quaternion.identity));
+        }
     }
 
     Stack<GameObject> projectiles = new Stack<GameObject>();
 
     bool idleAnimChanged = false;
-    float range = 0.3f;
+    float range = 0.4f;
+
+    void FixedUpdate() {
+        if (isAttacking) {
+            body.velocity = orient.sceneVec * dashRange * 
+                (Mathf.Max(delayDelta, Mathf.Epsilon) / delayAfterAttack);
+        }
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (delayDelta > 0.0f) {
+        // TODO: add some 
+        if (isAttacking) {
             character.busy = true;
             delayDelta -= Time.deltaTime;
 

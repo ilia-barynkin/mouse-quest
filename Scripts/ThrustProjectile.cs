@@ -28,20 +28,13 @@ public class ThrustProjectile : MonoBehaviour
 
     HashSet<int> enemiesTouched = new HashSet<int>();
 
-    // public void SwitchCollider(bool isOn = true) {
-    //     if (!isOn) 
-    //         enemiesTouched.Clear();
-            
-    //     coll.enabled = isOn;
-    // }
-
     void OnTriggerEnter2D(Collider2D other) {
         if (!enemiesTouched.Contains(other.gameObject.GetInstanceID())) {
             enemiesTouched.Add(other.gameObject.GetInstanceID());
-            Debug.Log(enemiesTouched.Count);//other.gameObject.GetInstanceID());
+            Debug.Log(enemiesTouched.Count);
             var health = other.gameObject.GetComponent<Health>();
             if (health != null) {
-                health.currentHealth -= damage;
+                health.Hit(damage);
                 var applied = other.ClosestPoint(transform.position) - (Vector2)transform.position;
                 Debug.DrawLine((Vector2)transform.position,  (Vector2)transform.position + applied.normalized, Color.red);
                 other.attachedRigidbody.AddForce(applied.normalized * 10.0f);
